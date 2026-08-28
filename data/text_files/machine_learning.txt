@@ -1,0 +1,5 @@
+Machine learning is a branch of artificial intelligence that uses data and algorithms to let computers learn and make predictions without being explicitly programmed for every task.
+Core Types of Machine Learning
+Supervised Learning : Trains models on labeled data to classify information or predict outcomes.
+Unsupervised Learning : Discovers hidden patterns or groupings in unlabeled data.
+Reinforcement Learning : Learns optimal actions through trial, error, and a reward system.

@@ -1,0 +1,41 @@
+MicroMLOps: A Lightweight, Automated MLOps Pipeline for Small Teams and Limited Resource Environments
+Problem Statement
+Modern MLOps practices such as automated retraining, data and model versioning, evaluation gating, and rollback are well established at large tech companies but remain out of reach for students, startups, and small teams due to the complexity and cost of tools like Kubeflow, SageMaker Pipelines, or Vertex AI. These platforms assume large budgets, dedicated infrastructure teams, and cloud scale compute. As a result, many small teams either skip MLOps entirely, leading to untracked model versions, undocumented datasets, and manual deployments, or they waste significant effort building brittle one off scripts. This project addresses that gap by building a lightweight, opinionated MLOps pipeline that provides the core benefits of versioning, automated retraining, evaluation gating, and rollback, while running on modest hardware or free tier cloud resources with minimal setup overhead.
+Objectives
+
+Design a pipeline that versions data, code, and model artifacts together for full reproducibility.
+Automate model retraining when new data arrives or performance drops below a threshold.
+Implement an evaluation gate that only promotes a new model to production if it outperforms the current one on a held out test set.
+Support automatic rollback to a previous model version if a newly deployed model regresses in production.
+Package the entire system to run on low cost or free infrastructure with minimal configuration.
+
+Scope of the Project
+The project covers a complete but simplified MLOps loop for a single model type such as a tabular classification or regression model, including data versioning, training pipeline automation, evaluation gating, deployment, monitoring, and rollback. It does not cover large scale distributed training, multi model orchestration, or enterprise grade access control, which are noted as future extensions. The target user is a small team of two to ten people or an individual developer, not an enterprise deployment.
+Expected Outcome
+A working, documented pipeline deployable via Docker or CLI where a user can push new training data or code, trigger an automated retraining run, view evaluation results comparing the new model to the currently deployed one, have the system automatically promote or reject the new model based on defined thresholds, and roll back with a single command if issues are detected after deployment. The final demo shows the full loop in action, from a data update through retraining, evaluation, deployment or rejection, a simulated regression, and rollback.
+Proposed Methodology / Workflow
+
+Data and code versioning: track datasets and code using a lightweight versioning tool, linking each model artifact to the exact data and code snapshot that produced it.
+Training automation: a trigger mechanism, such as a new data commit, a schedule, or a manual call, starts a training job inside a reproducible containerized environment.
+Evaluation gate: after training, the new model is automatically evaluated on a fixed held out test set, and results are compared against the currently deployed model's metrics.
+Promotion or rejection logic: if the new model meets the defined improvement or no regression threshold, it is promoted to a staging or production registry, otherwise it is logged and discarded.
+Deployment: the promoted model is served through a lightweight API endpoint.
+Monitoring: basic production metrics such as prediction distribution, latency, and optionally live accuracy are logged and checked against expected ranges.
+Rollback: if monitoring flags a regression, or a user manually triggers it, the system automatically reverts to the last known good model version from the registry.
+
+Dataset Source (available or planned)
+A publicly available tabular dataset such as a Kaggle classification dataset covering customer churn, credit risk, or housing prices, chosen to keep the pipeline model agnostic and easy to evaluate. Simulated new data batches are created by splitting the dataset into sequential chunks to mimic real world data arriving over time, used to demonstrate the retraining trigger. Optionally, a second dataset such as a small image or text classification set is used to show the pipeline generalizes beyond tabular data.
+Proposed Algorithms / Models
+The pipeline itself is model agnostic, and the focus is on the MLOps infrastructure rather than model novelty. Demo models include a standard classifier or regressor such as XGBoost, Random Forest, or a small neural network built with scikit learn or PyTorch. Evaluation metrics include standard task appropriate measures such as accuracy, F1 score, and RMSE, along with a defined regression threshold rule where a new model must not underperform the current model by more than a set percentage. An optional drift check uses simple statistical tests such as PSI or the KS test on incoming data batches to help decide when retraining is warranted.
+Technologies & Tools to be used
+Versioning: DVC for data and model artifact tracking.
+Pipeline orchestration: Prefect for lightweight workflow automation.
+Containerization: Docker for reproducible training and serving environments.
+Model serving: FastAPI for the prediction API.
+Model registry and experiment tracking: MLflow run in lightweight local mode.
+CI/CD: GitHub Actions to automate the trigger, train, evaluate, and deploy loop.
+Monitoring and dashboard: Streamlit for visualizing model versions, metrics history, and rollback status.
+Storage: SQLite for logging and registry data.
+Machine learning libraries: scikit learn, XGBoost, and optionally PyTorch for training.
+Conclusion and Future Scope
+MicroMLOps addresses a real and common gap where most MLOps tooling is built for organizations with dedicated infrastructure teams and cloud budgets, leaving small teams and students without a practical way to apply reproducibility, automated evaluation, and safe deployment practices to their own projects. By deliberately keeping the stack lightweight and free tier friendly, this project offers both technical depth across data engineering, automation, and deployment, and real practical usefulness beyond the classroom. Future extensions could include support for multi model pipelines, integration with real time drift detection for proactive monitoring, Kubernetes based scaling for teams that outgrow the lightweight setup, and a plug in system so the pipeline can adapt to different ML frameworks without reconfiguration.

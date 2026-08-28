@@ -1,0 +1,21 @@
+# Virtual environment - machine-specific, rebuildable from uv.lock
+.venv/
+
+# Python cache/bytecode - regenerated automatically, not source
+__pycache__/
+*.pyc
+
+# Secrets - API keys should never be committed
+.env
+
+# Jupyter checkpoint clutter
+.ipynb_checkpoints/
+
+# Vector store persistence - large, regenerable from source data
+chroma_db/
+
+# Logs
+*.log
+
+# OS-specific junk
+.DS_Store
