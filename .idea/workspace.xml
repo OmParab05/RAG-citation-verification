@@ -2,8 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9b26e697-76bf-464e-bf65-6290e20a6b20" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/vector_store/0228ae7f-7ea2-4f88-b7d4-01223b844584/length.bin" beforeDir="false" afterPath="$PROJECT_DIR$/data/vector_store/0228ae7f-7ea2-4f88-b7d4-01223b844584/length.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/vector_store/chroma.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/data/vector_store/chroma.sqlite3" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/notebook/pdf_loader.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/notebook/pdf_loader.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
